@@ -5,7 +5,7 @@
  * Copyright (c) 2016 undefined
  * License: MIT
  *
- * Generated at Friday, May 6th, 2016, 12:18:49 PM
+ * Generated at Thursday, May 19th, 2016, 3:34:56 PM
  */
 (function() {
 var crop = angular.module('ngImgCrop', []);
@@ -2140,6 +2140,7 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                 h: 200
             },
             areaMinRelativeSize = null,
+            areaMaxRelativeSize = null,
 
             // Result Image type
             resImgFormat = 'image/png',
@@ -2669,6 +2670,20 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
             }
         };
 
+        this.setAreaMaxRelativeSize = function(size) {
+            if (image !== null) {
+                var canvasSize = theArea.getCanvasSize();
+                if (angular.isUndefined(size)) {
+                    return;
+                } else if(typeof size == 'number' || typeof size == 'string') {
+                    areaMaxRelativeSize = {
+                        w: size,
+                        h: size
+                    };
+                }
+            }
+        };
+
         this.setAreaInitSize = function(size) {
             if (angular.isUndefined(size)) {
                 return;
@@ -2767,6 +2782,15 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                   if (size.h < areaMinRelativeSize.h) {
                     size.h = areaMinRelativeSize.h;
                   }
+                }
+
+                if (areaMaxRelativeSize) {
+                    if (size.w > areaMaxRelativeSize.w) {
+                        size.w = areaMaxRelativeSize.w;
+                    }
+                    if (size.h > areaMaxRelativeSize.h) {
+                        size.h = areaMaxRelativeSize.h;
+                    }
                 }
 
                 return size;
@@ -2992,6 +3016,7 @@ crop.directive('imgCrop', ['$timeout', 'cropHost', 'cropPubSub', function ($time
                                              /* if canvas is 500x500 Crop coordinates will be x: 50, y: 50, w: 50, h: 50 */
                                              /* if canvas is 100x100 crop coordinates will be x: 10, y: 10, w: 10, h: 10 */
             areaMinRelativeSize: '=?',
+            areaMaxRelativeSize: '=?',
             resultImageSize: '=?',
             resultImageFormat: '=?',
             resultImageQuality: '=?',
@@ -3132,6 +3157,7 @@ crop.directive('imgCrop', ['$timeout', 'cropHost', 'cropPubSub', function ($time
                 }))
                 .on('image-updated', fnSafeApply(function(scope) {
                     cropHost.setAreaMinRelativeSize(scope.areaMinRelativeSize);
+                    cropHost.setAreaMaxRelativeSize(scope.areaMaxRelativeSize);
                 }));
 
             // Sync CropHost with Directive's options
@@ -3155,6 +3181,12 @@ crop.directive('imgCrop', ['$timeout', 'cropHost', 'cropPubSub', function ($time
             scope.$watch('areaMinRelativeSize', function () {
                 if (scope.image !== '') {
                     cropHost.setAreaMinRelativeSize(scope.areaMinRelativeSize);
+                    updateResultImage(scope);
+                }
+            });
+            scope.$watch('areaMaxRelativeSize', function () {
+                if (scope.image !== '') {
+                    cropHost.setAreaMaxRelativeSize(scope.areaMaxRelativeSize);
                     updateResultImage(scope);
                 }
             });

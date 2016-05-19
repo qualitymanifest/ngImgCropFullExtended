@@ -47,6 +47,7 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                 h: 200
             },
             areaMinRelativeSize = null,
+            areaMaxRelativeSize = null,
 
             // Result Image type
             resImgFormat = 'image/png',
@@ -576,6 +577,20 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
             }
         };
 
+        this.setAreaMaxRelativeSize = function(size) {
+            if (image !== null) {
+                var canvasSize = theArea.getCanvasSize();
+                if (angular.isUndefined(size)) {
+                    return;
+                } else if(typeof size == 'number' || typeof size == 'string') {
+                    areaMaxRelativeSize = {
+                        w: size,
+                        h: size
+                    };
+                }
+            }
+        };
+
         this.setAreaInitSize = function(size) {
             if (angular.isUndefined(size)) {
                 return;
@@ -674,6 +689,15 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                   if (size.h < areaMinRelativeSize.h) {
                     size.h = areaMinRelativeSize.h;
                   }
+                }
+
+                if (areaMaxRelativeSize) {
+                    if (size.w > areaMaxRelativeSize.w) {
+                        size.w = areaMaxRelativeSize.w;
+                    }
+                    if (size.h > areaMaxRelativeSize.h) {
+                        size.h = areaMaxRelativeSize.h;
+                    }
                 }
 
                 return size;
