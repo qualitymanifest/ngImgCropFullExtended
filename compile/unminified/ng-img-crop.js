@@ -5,7 +5,7 @@
  * Copyright (c) 2016 undefined
  * License: MIT
  *
- * Generated at Thursday, May 19th, 2016, 3:34:56 PM
+ * Generated at Thursday, May 19th, 2016, 4:08:26 PM
  */
 (function() {
 var crop = angular.module('ngImgCrop', []);
@@ -2672,7 +2672,6 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
 
         this.setAreaMaxRelativeSize = function(size) {
             if (image !== null) {
-                var canvasSize = theArea.getCanvasSize();
                 if (angular.isUndefined(size)) {
                     return;
                 } else if(typeof size == 'number' || typeof size == 'string') {
@@ -2680,6 +2679,8 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                         w: size,
                         h: size
                     };
+                } else {
+                    areaMaxRelativeSize = size;
                 }
             }
         };

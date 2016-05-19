@@ -579,7 +579,6 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
 
         this.setAreaMaxRelativeSize = function(size) {
             if (image !== null) {
-                var canvasSize = theArea.getCanvasSize();
                 if (angular.isUndefined(size)) {
                     return;
                 } else if(typeof size == 'number' || typeof size == 'string') {
@@ -587,6 +586,8 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                         w: size,
                         h: size
                     };
+                } else {
+                    areaMaxRelativeSize = size;
                 }
             }
         };
