@@ -693,14 +693,22 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                 }
 
                 if (areaMaxRelativeSize) {
+                    var percent, wPercent, hPercent;
                     if (size.w > areaMaxRelativeSize.w) {
-                        size.w = areaMaxRelativeSize.w;
+                        wPercent = size.w / areaMaxRelativeSize.w;
+                        // size.w = areaMaxRelativeSize.w;
                     }
                     if (size.h > areaMaxRelativeSize.h) {
-                        size.h = areaMaxRelativeSize.h;
+                        hPercent = size.h / areaMaxRelativeSize.w;
+                    }
+
+                    if (hPercent && wPercent) {
+                        percent = wPercent > hPercent ? wPercent : hPercent;
+                        size.w /= percent;
+                        size.h /= percent;
                     }
                 }
-
+                
                 return size;
             }
 
