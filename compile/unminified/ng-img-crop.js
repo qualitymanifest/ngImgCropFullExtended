@@ -5,7 +5,7 @@
  * Copyright (c) 2016 undefined
  * License: MIT
  *
- * Generated at Thursday, May 19th, 2016, 5:06:16 PM
+ * Generated at Friday, May 27th, 2016, 2:39:55 PM
  */
 (function() {
 var crop = angular.module('ngImgCrop', []);
