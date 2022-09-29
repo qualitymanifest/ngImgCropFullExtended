@@ -81,7 +81,7 @@
                     canvas.height = mpImg.srcImage.height;
 
                     EXIF.getData(file, function() {
-                        var orientation = EXIF.getTag(this, 'Orientation');
+                        var orientation = 1;
 
                         mpImg.render(canvas, {
                             maxHeight: $scope.resImgSize * 2,

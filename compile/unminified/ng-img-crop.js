@@ -1,11 +1,11 @@
 /*!
- * ngImgCropExtended v0.5.4
+ * ngImgCropExtended v0.5.5
  * https://github.com/CrackerakiUA/ngImgCropExtended/
  *
- * Copyright (c) 2016 undefined
+ * Copyright (c) 2022 undefined
  * License: MIT
  *
- * Generated at Friday, May 27th, 2016, 2:39:55 PM
+ * Generated at Thursday, September 29th, 2022, 4:17:16 PM
  */
 (function() {
 var crop = angular.module('ngImgCrop', []);
@@ -2475,7 +2475,7 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                     events.trigger('load-done');
 
                     cropEXIF.getData(newImage, function() {
-                        var orientation = cropEXIF.getTag(newImage, 'Orientation');
+                        var orientation = 1;
 
                         if ([3, 6, 8].indexOf(orientation) > -1) {
                             var canvas = document.createElement("canvas"),

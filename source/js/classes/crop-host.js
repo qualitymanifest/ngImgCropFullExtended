@@ -382,7 +382,7 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                     events.trigger('load-done');
 
                     cropEXIF.getData(newImage, function() {
-                        var orientation = cropEXIF.getTag(newImage, 'Orientation');
+                        var orientation = 1;
 
                         if ([3, 6, 8].indexOf(orientation) > -1) {
                             var canvas = document.createElement("canvas"),
